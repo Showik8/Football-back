@@ -1,0 +1,738 @@
+import express from "express";
+import type { Request, Response } from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+
+dotenv.config();
+
+const app = express();
+app.use(cors());
+const PORT = process.env.PORT;
+
+const matches = [
+  {
+    Home: "Real Madrid",
+    Away: "Barcelona",
+    date: "08 October",
+    time: "23:00",
+  },
+  {
+    Home: "Real Madrid",
+    Away: "Barcelona",
+    date: "08 October",
+    time: "23:00",
+  },
+  {
+    Home: "Real Madrid",
+    Away: "Barcelona",
+    date: "08 October",
+    time: "23:00",
+  },
+  {
+    Home: "Real Madrid",
+    Away: "Barcelona",
+    date: "08 October",
+    time: "23:00",
+  },
+  {
+    Home: "Real Madrid",
+    Away: "Barcelona",
+    date: "08 October",
+    time: "23:00",
+  },
+];
+
+const news = [
+  {
+    text: "mkasdkmasdmkads",
+    photo_url: "https://placehold.co/250x250.png",
+  },
+
+  {
+    text: "kmasdmakdsmkmed",
+    photo_url: "https://placehold.co/230x170.png",
+  },
+  {
+    text: "kmasdmakdsmkmed",
+    photo_url: "https://placehold.co/230x170.png",
+  },
+  {
+    text: "kmasdmakdsmkmed",
+    photo_url: "https://placehold.co/230x170.png",
+  },
+  {
+    text: "kmasdmakdsmkmed",
+    photo_url: "https://placehold.co/230x170.png",
+  },
+];
+
+
+const tournaments = [
+  {
+    id:1,
+    name : "gff" ,
+    age:"u-19",
+    teams :[
+      {
+        "team": "იბერია 1999",
+        "played": 16,
+        "won": 13,
+        "drawn": 2,
+        "lost": 1,
+        "for": 41,
+        "against": 14,
+        "goalDifference": 27,
+        "points": 41
+      },
+      {
+        "team": "დინამო თბილისი",
+        "played": 16,
+        "won": 12,
+        "drawn": 2,
+        "lost": 2,
+        "for": 47,
+        "against": 19,
+        "goalDifference": 28,
+        "points": 38
+      },
+      {
+        "team": "ტორპედო",
+        "played": 16,
+        "won": 9,
+        "drawn": 2,
+        "lost": 5,
+        "for": 26,
+        "against": 18,
+        "goalDifference": 8,
+        "points": 29
+      },
+      {
+        "team": "ლოკომოტივი",
+        "played": 16,
+        "won": 8,
+        "drawn": 2,
+        "lost": 6,
+        "for": 31,
+        "against": 23,
+        "goalDifference": 8,
+        "points": 26
+      },
+      {
+        "team": "დინამო ბათუმი",
+        "played": 16,
+        "won": 8,
+        "drawn": 1,
+        "lost": 7,
+        "for": 35,
+        "against": 35,
+        "goalDifference": 0,
+        "points": 25
+      },
+      {
+        "team": "კოლხეთი 1913",
+        "played": 16,
+        "won": 7,
+        "drawn": 2,
+        "lost": 7,
+        "for": 25,
+        "against": 28,
+        "goalDifference": -3,
+        "points": 23
+      },
+      {
+        "team": "ვიტი-ჯორჯია",
+        "played": 16,
+        "won": 5,
+        "drawn": 0,
+        "lost": 11,
+        "for": 26,
+        "against": 45,
+        "goalDifference": -19,
+        "points": 15
+      },
+      {
+        "team": "დილა",
+        "played": 16,
+        "won": 4,
+        "drawn": 1,
+        "lost": 11,
+        "for": 20,
+        "against": 43,
+        "goalDifference": -23,
+        "points": 13
+      },
+      {
+        "team": "თელავი",
+        "played": 16,
+        "won": 3,
+        "drawn": 4,
+        "lost": 9,
+        "for": 17,
+        "against": 28,
+        "goalDifference": -11,
+        "points": 13
+      },
+      {
+        "team": "საბურთალო",
+        "played": 16,
+        "won": 3,
+        "drawn": 0,
+        "lost": 13,
+        "for": 25,
+        "against": 40,
+        "goalDifference": -15,
+        "points": 9
+      }
+    ],
+  },
+  {
+    id:2,
+    age:"u-17",
+    name:"league",
+    teams :[
+      {
+        team: "Inter",
+        played: 6,
+        won: 6,
+        drawn: 0,
+        lost: 0,
+        for: 19,
+        against: 7,
+        goalDifference: 12,
+        points: 18,
+      },
+      {
+        team: "Sporting CP",
+        played: 6,
+        won: 5,
+        drawn: 1,
+        lost: 0,
+        for: 13,
+        against: 3,
+        goalDifference: 10,
+        points: 16,
+      },
+      {
+        team: "Salzburg",
+        played: 6,
+        won: 5,
+        drawn: 1,
+        lost: 0,
+        for: 17,
+        against: 9,
+        goalDifference: 8,
+        points: 16,
+      },
+      {
+        team: "Barcelona",
+        played: 6,
+        won: 5,
+        drawn: 0,
+        lost: 1,
+        for: 17,
+        against: 10,
+        goalDifference: 7,
+        points: 15,
+      },
+      {
+        team: "Milan",
+        played: 6,
+        won: 4,
+        drawn: 1,
+        lost: 1,
+        for: 14,
+        against: 8,
+        goalDifference: 6,
+        points: 13,
+      },
+      {
+        team: "Juventus",
+        played: 6,
+        won: 3,
+        drawn: 1,
+        lost: 2,
+        for: 12,
+        against: 11,
+        goalDifference: 1,
+        points: 10,
+      },
+      {
+        team: "Roma",
+        played: 6,
+        won: 2,
+        drawn: 1,
+        lost: 3,
+        for: 9,
+        against: 12,
+        goalDifference: -3,
+        points: 7,
+      },
+      {
+        team: "Napoli",
+        played: 6,
+        won: 1,
+        drawn: 1,
+        lost: 4,
+        for: 7,
+        against: 15,
+        goalDifference: -8,
+        points: 4,
+      },
+      {
+        team: "Benfica",
+        played: 6,
+        won: 4,
+        drawn: 1,
+        lost: 1,
+        for: 13,
+        against: 7,
+        goalDifference: 6,
+        points: 13,
+      },
+      {
+        team: "PSG",
+        played: 6,
+        won: 4,
+        drawn: 0,
+        lost: 2,
+        for: 15,
+        against: 9,
+        goalDifference: 6,
+        points: 12,
+      },
+      {
+        team: "Arsenal",
+        played: 6,
+        won: 3,
+        drawn: 2,
+        lost: 1,
+        for: 11,
+        against: 6,
+        goalDifference: 5,
+        points: 11,
+      },
+      {
+        team: "Real Madrid",
+        played: 6,
+        won: 3,
+        drawn: 1,
+        lost: 2,
+        for: 12,
+        against: 9,
+        goalDifference: 3,
+        points: 10,
+      },
+      {
+        team: "Bayern",
+        played: 6,
+        won: 3,
+        drawn: 1,
+        lost: 2,
+        for: 13,
+        against: 12,
+        goalDifference: 1,
+        points: 10,
+      },
+      {
+        team: "Man City",
+        played: 6,
+        won: 3,
+        drawn: 0,
+        lost: 3,
+        for: 14,
+        against: 13,
+        goalDifference: 1,
+        points: 9,
+      },
+      {
+        team: "Atletico",
+        played: 6,
+        won: 2,
+        drawn: 2,
+        lost: 2,
+        for: 10,
+        against: 10,
+        goalDifference: 0,
+        points: 8,
+      },
+      {
+        team: "Porto",
+        played: 6,
+        won: 2,
+        drawn: 2,
+        lost: 2,
+        for: 9,
+        against: 11,
+        goalDifference: -2,
+        points: 8,
+      },
+      {
+        team: "RB Leipzig",
+        played: 6,
+        won: 2,
+        drawn: 1,
+        lost: 3,
+        for: 10,
+        against: 12,
+        goalDifference: -2,
+        points: 7,
+      },
+      {
+        team: "Dortmund",
+        played: 6,
+        won: 2,
+        drawn: 1,
+        lost: 3,
+        for: 9,
+        against: 12,
+        goalDifference: -3,
+        points: 7,
+      },
+      {
+        team: "Ajax",
+        played: 6,
+        won: 1,
+        drawn: 2,
+        lost: 3,
+        for: 8,
+        against: 12,
+        goalDifference: -4,
+        points: 5,
+      },
+      {
+        team: "Celtic",
+        played: 6,
+        won: 1,
+        drawn: 1,
+        lost: 4,
+        for: 6,
+        against: 14,
+        goalDifference: -8,
+        points: 4,
+      },
+    ]
+  },
+  {
+    id:3,
+    name:"imereti",
+    age:"u-19",
+    teams:[
+
+        {
+          "team": "ივერია ხაშური",
+          "played": 12,
+          "won": 11,
+          "drawn": 0,
+          "lost": 1,
+          "for": 35,
+          "against": 11,
+          "goalDifference": 24,
+          "points": 33
+        },
+        {
+          "team": "დინამო 1 ბათუმი",
+          "played": 12,
+          "won": 10,
+          "drawn": 1,
+          "lost": 1,
+          "for": 46,
+          "against": 14,
+          "goalDifference": 32,
+          "points": 31
+        },
+        {
+          "team": "მარნეთი ქუთაისი",
+          "played": 12,
+          "won": 7,
+          "drawn": 2,
+          "lost": 3,
+          "for": 32,
+          "against": 19,
+          "goalDifference": 13,
+          "points": 23
+        },
+        {
+          "team": "მარგვეთი 2006 ზესტაფონი",
+          "played": 12,
+          "won": 7,
+          "drawn": 0,
+          "lost": 5,
+          "for": 31,
+          "against": 25,
+          "goalDifference": 6,
+          "points": 21
+        },
+        {
+          "team": "ბაია ზუგდიდი",
+          "played": 12,
+          "won": 6,
+          "drawn": 0,
+          "lost": 6,
+          "for": 18,
+          "against": 21,
+          "goalDifference": -3,
+          "points": 18
+        },
+        {
+          "team": "ჩელე აკადემია 1 ქობულეთი",
+          "played": 12,
+          "won": 5,
+          "drawn": 2,
+          "lost": 5,
+          "for": 16,
+          "against": 12,
+          "goalDifference": 4,
+          "points": 17
+        },
+        {
+          "team": "სასს სტარტი",
+          "played": 12,
+          "won": 5,
+          "drawn": 0,
+          "lost": 7,
+          "for": 26,
+          "against": 31,
+          "goalDifference": -5,
+          "points": 15
+        },
+        {
+          "team": "რაკეტა ამბროლაური",
+          "played": 12,
+          "won": 2,
+          "drawn": 1,
+          "lost": 9,
+          "for": 6,
+          "against": 22,
+          "goalDifference": -16,
+          "points": 7
+        },
+        {
+          "team": "ბახმარო ჩოხატაური",
+          "played": 12,
+          "won": 2,
+          "drawn": 1,
+          "lost": 9,
+          "for": 11,
+          "against": 37,
+          "goalDifference": -26,
+          "points": 7
+        },
+        {
+          "team": "სევანელი ქუთაისი",
+          "played": 12,
+          "won": 1,
+          "drawn": 1,
+          "lost": 10,
+          "for": 12,
+          "against": 41,
+          "goalDifference": -29,
+          "points": 4
+        }
+
+
+    ]
+  }
+
+
+
+
+]
+
+
+type player = {
+  id: number;
+  name: string;
+  jersey: number;
+  goal: number;
+  matchPlayed?: number;
+  assist: number;
+  view: number;
+};
+
+const players: player[] = [
+  {
+    id: 1,
+    name: "Giorgi Papava",
+    jersey: 1,
+    goal: 0,
+    matchPlayed: 5,
+    assist: 0,
+    view: 12,
+  },
+  {
+    id: 2,
+    name: "Levan Koberidze",
+    jersey: 2,
+    goal: 1,
+    matchPlayed: 7,
+    assist: 0,
+    view: 20,
+  },
+  {
+    id: 3,
+    name: "Nika Tchikovani",
+    jersey: 3,
+    goal: 0,
+    matchPlayed: 6,
+    assist: 2,
+    view: 18,
+  },
+  {
+    id: 4,
+    name: "Zurab Lobjanidze",
+    jersey: 4,
+    goal: 2,
+    matchPlayed: 8,
+    assist: 1,
+    view: 25,
+  },
+  {
+    id: 5,
+    name: "Irakli Shengelia",
+    jersey: 5,
+    goal: 1,
+    matchPlayed: 4,
+    assist: 0,
+    view: 14,
+  },
+  {
+    id: 6,
+    name: "Saba Khutsishvili",
+    jersey: 6,
+    goal: 0,
+    matchPlayed: 9,
+    assist: 3,
+    view: 27,
+  },
+  {
+    id: 7,
+    name: "Giorgi Kapanadze",
+    jersey: 7,
+    goal: 4,
+    matchPlayed: 10,
+    assist: 2,
+    view: 40,
+  },
+  {
+    id: 8,
+    name: "Vakhtang Tvaltvadze",
+    jersey: 8,
+    goal: 3,
+    matchPlayed: 11,
+    assist: 1,
+    view: 30,
+  },
+  {
+    id: 9,
+    name: "Davit Gelashvili",
+    jersey: 9,
+    goal: 5,
+    matchPlayed: 12,
+    assist: 2,
+    view: 50,
+  },
+  {
+    id: 10,
+    name: "Lasha Beridze",
+    jersey: 10,
+    goal: 6,
+    matchPlayed: 13,
+    assist: 4,
+    view: 65,
+  },
+  {
+    id: 11,
+    name: "Tornike Sulakvelidze",
+    jersey: 11,
+    goal: 2,
+    matchPlayed: 9,
+    assist: 5,
+    view: 55,
+  },
+  {
+    id: 12,
+    name: "Aleksandre Jikia",
+    jersey: 12,
+    goal: 0,
+    matchPlayed: 3,
+    assist: 1,
+    view: 10,
+  },
+  {
+    id: 13,
+    name: "Mikheil Abuladze",
+    jersey: 13,
+    goal: 1,
+    matchPlayed: 6,
+    assist: 0,
+    view: 16,
+  },
+  {
+    id: 14,
+    name: "Nodar Kobalia",
+    jersey: 14,
+    goal: 0,
+    matchPlayed: 5,
+    assist: 2,
+    view: 19,
+  },
+  {
+    id: 15,
+    name: "Beka Diasamidze",
+    jersey: 15,
+    goal: 3,
+    matchPlayed: 7,
+    assist: 1,
+    view: 28,
+  },
+];
+
+function top5(arg: keyof player, players: player[]): player[] {
+  return [...players]
+    .sort((a, b) => (b[arg] as number) - (a[arg] as number))
+    .slice(0, 5);
+}
+
+const topGoalScorers = top5("goal", players);
+const topAssists = top5("assist", players);
+const topViewers = top5("view", players);
+const topMatchPlayed = top5("matchPlayed", players);
+
+app.get("/api/matches", (req: Request, res: Response) => {
+  res.send(matches);
+});
+
+app.get("/api/news", (req: Request, res: Response) => {
+  res.send(news);
+});
+
+app.get("/api/statistic", (req: Request, res: Response) => {
+  res.send({
+    topGoalScorers,
+    topAssists,
+    topViewers,
+    topMatchPlayed,
+  });
+});
+
+console.log(tournaments);
+
+app.get("/api/tournaments", (req: Request, res: Response) => {
+  const ageCategory = req.query.ageCategory as string;
+  const nameOfTournament = req.query.tournament as string;
+
+  const tournament = tournaments.find(
+      (t) => t.name === nameOfTournament && t.age === ageCategory
+  );
+
+  if (!tournament) {
+    return res.status(404).json({  message: "Not found" , team:0});
+  }
+
+  res.send(tournament.teams);
+
+});
+
+app.listen(PORT, () => {
+  console.log("hello", PORT);
+});
