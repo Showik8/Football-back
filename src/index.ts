@@ -1,8 +1,8 @@
 import express from "express";
-import type { Request, Response } from "express";
-// import { VercelRequest, VercelResponse } from "@vercel/node";
 import cors from "cors";
+import type { Request, Response } from "express";
 import { matches, news, players, tournaments } from "./constants";
+import { VercelRequest, VercelResponse } from "@vercel/node";
 
 type Player = {
   id: number;
@@ -14,9 +14,28 @@ type Player = {
   view: number;
 };
 
-// Initialize Express
 const app = express();
-app.use(cors());
+
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://your-next-app.vercel.app",
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // allow requests with no origin (e.g. server-to-server)
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 function top5(arg: keyof Player, list: Player[]): Player[] {
@@ -32,19 +51,19 @@ const topMatchPlayed = top5("matchPlayed", players);
 
 // Routes
 app.get("/", (_req: Request, res: Response) => {
-  res.send({ message: "Hello" });
+  res.json({ message: "Hello" });
 });
 
 app.get("/api/matches", (_req: Request, res: Response) => {
-  res.send(matches);
+  res.json(matches);
 });
 
 app.get("/api/news", (_req: Request, res: Response) => {
-  res.send(news);
+  res.json(news);
 });
 
 app.get("/api/statistic", (_req: Request, res: Response) => {
-  res.send({ topGoalScorers, topAssists, topViewers, topMatchPlayed });
+  res.json({ topGoalScorers, topAssists, topViewers, topMatchPlayed });
 });
 
 app.get("/api/tournaments", (req: Request, res: Response) => {
@@ -61,8 +80,8 @@ app.get("/api/tournaments", (req: Request, res: Response) => {
   res.json(tournament.teams);
 });
 
-app.listen(7777, () => {
-  console.log("works");
-});
+export default (req: VercelRequest, res: VercelResponse) => app(req, res);
 
-// export default (req: VercelRequest, res: VercelResponse) => app(req, res);
+app.listen(8888, () => {
+  console.log("working");
+});
