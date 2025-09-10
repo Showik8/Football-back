@@ -1,4 +1,34 @@
 const matches = [
+  {
+    Home: "Real Madrid",
+    Away: "Barcelona",
+    date: "08 October",
+    time: "23:00",
+  },
+  {
+    Home: "Manchester United",
+    Away: "Liverpool",
+    date: "09 October",
+    time: "20:30",
+  },
+  {
+    Home: "Chelsea",
+    Away: "Arsenal",
+    date: "10 October",
+    time: "19:00",
+  },
+  {
+    Home: "PSG",
+    Away: "Bayern Munich",
+    date: "11 October",
+    time: "21:45",
+  },
+  {
+    Home: "AC Milan",
+    Away: "Juventus",
+    date: "12 October",
+    time: "18:30",
+  },
   { Home: "Real Madrid", Away: "Barcelona", date: "08 October", time: "23:00" },
   { Home: "Real Madrid", Away: "Barcelona", date: "08 October", time: "23:00" },
   { Home: "Real Madrid", Away: "Barcelona", date: "08 October", time: "23:00" },
@@ -7,11 +37,26 @@ const matches = [
 ];
 
 const news = [
-  { text: "mkasdkmasdmkads", photo_url: "https://placehold.co/250x250.png" },
-  { text: "kmasdmakdsmkmed", photo_url: "https://placehold.co/230x170.png" },
-  { text: "kmasdmakdsmkmed", photo_url: "https://placehold.co/230x170.png" },
-  { text: "kmasdmakdsmkmed", photo_url: "https://placehold.co/230x170.png" },
-  { text: "kmasdmakdsmkmed", photo_url: "https://placehold.co/230x170.png" },
+  {
+    text: "Transfer window: Top 10 deals that shocked the football world",
+    photo_url: "https://placehold.co/250x250.png",
+  },
+  {
+    text: "World Cup 2026: New stadiums revealed for upcoming tournament",
+    photo_url: "https://placehold.co/230x170.png",
+  },
+  {
+    text: "Premier League title race heating up as season enters final stretch",
+    photo_url: "https://placehold.co/230x170.png",
+  },
+  {
+    text: "Young talent emerges as the next big star in European football",
+    photo_url: "https://placehold.co/230x170.png",
+  },
+  {
+    text: "Classic El Clasico match breaks viewership records worldwide",
+    photo_url: "https://placehold.co/230x170.png",
+  },
 ];
 
 type Player = {
@@ -22,6 +67,8 @@ type Player = {
   matchPlayed?: number;
   assist: number;
   view: number;
+  club: string;
+  position: string;
 };
 
 const players: Player[] = [
@@ -33,6 +80,8 @@ const players: Player[] = [
     matchPlayed: 5,
     assist: 0,
     view: 12,
+    club: "Batumis Dinamo",
+    position: "CM",
   },
   {
     id: 2,
@@ -42,6 +91,8 @@ const players: Player[] = [
     matchPlayed: 7,
     assist: 0,
     view: 20,
+    club: "Batumis Dinamo",
+    position: "CM",
   },
   {
     id: 3,
@@ -51,6 +102,8 @@ const players: Player[] = [
     matchPlayed: 6,
     assist: 2,
     view: 18,
+    club: "Batumis Dinamo",
+    position: "CM",
   },
   {
     id: 4,
@@ -60,6 +113,8 @@ const players: Player[] = [
     matchPlayed: 8,
     assist: 1,
     view: 25,
+    club: "Batumis Dinamo",
+    position: "CM",
   },
   {
     id: 5,
@@ -69,6 +124,8 @@ const players: Player[] = [
     matchPlayed: 4,
     assist: 0,
     view: 14,
+    club: "Batumis Dinamo",
+    position: "CM",
   },
   {
     id: 6,
@@ -78,6 +135,8 @@ const players: Player[] = [
     matchPlayed: 9,
     assist: 3,
     view: 27,
+    club: "Batumis Dinamo",
+    position: "CM",
   },
   {
     id: 7,
@@ -87,6 +146,8 @@ const players: Player[] = [
     matchPlayed: 10,
     assist: 2,
     view: 40,
+    club: "Batumis Dinamo",
+    position: "CM",
   },
   {
     id: 8,
@@ -96,6 +157,8 @@ const players: Player[] = [
     matchPlayed: 11,
     assist: 1,
     view: 30,
+    club: "Batumis Dinamo",
+    position: "CM",
   },
   {
     id: 9,
@@ -105,6 +168,8 @@ const players: Player[] = [
     matchPlayed: 12,
     assist: 2,
     view: 50,
+    club: "Batumis Dinamo",
+    position: "CM",
   },
   {
     id: 10,
@@ -114,6 +179,8 @@ const players: Player[] = [
     matchPlayed: 13,
     assist: 4,
     view: 65,
+    club: "Batumis Dinamo",
+    position: "CM",
   },
 ];
 
