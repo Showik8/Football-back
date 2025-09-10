@@ -4,10 +4,19 @@ type Player = {
   id: number;
   name: string;
   jersey: number;
+  position: string;
+  team: string;
+  age: number;
+  nationality: string;
   goal: number;
-  matchPlayed?: number;
   assist: number;
+  matchPlayed: number;
   view: number;
+  yellowCards: number;
+  redCards: number;
+  height: number;
+  weight: number;
+  photoUrl: string;
 };
 
 function top5(arg: keyof Player, list: Player[]): Player[] {
@@ -15,11 +24,6 @@ function top5(arg: keyof Player, list: Player[]): Player[] {
     .sort((a, b) => ((b[arg] ?? 0) as number) - ((a[arg] ?? 0) as number))
     .slice(0, 5);
 }
-
-// const topGoalScorers = top5("goal", players);
-// const topAssists = top5("assist", players);
-// const topViewers = top5("view", players);
-// const topMatchPlayed = top5("matchPlayed", players);
 
 const Top5 = {
   topGoalScorers: top5("goal", players),
