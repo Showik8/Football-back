@@ -7,7 +7,6 @@ import newsRouter from "./routes/newsRouter";
 import statisticRouter from "./routes/statisticRouter";
 import tournamentsRouter from "./routes/tournamentsRouter";
 import playersRouter from "./routes/playersRouter";
-
 import dotenv from "dotenv";
 
 const app = express();
@@ -35,6 +34,6 @@ app.use("/api/players", playersRouter);
 
 export default (req: VercelRequest, res: VercelResponse) => app(req, res);
 
-app.listen(8888, () => {
-  console.log("working");
-});
+// app.listen(8888, () => {
+//   console.log("working");
+// });
