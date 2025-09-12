@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "tsc --watch",
     "build": "tsc",
-    "start": "node dist/api/index.js"
+    "start": "node dist/api/index.js",
+    "postinstall": "prisma generate"
   },
   "keywords": [],
   "author": "",

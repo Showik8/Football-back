@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import type { Request, Response } from "express";
-// import { VercelRequest, VercelResponse } from "@vercel/node";
+import { VercelRequest, VercelResponse } from "@vercel/node";
 import matchesRouter from "./routes/mathcesRouter";
 import newsRouter from "./routes/newsRouter";
 import statisticRouter from "./routes/statisticRouter";
@@ -33,7 +33,8 @@ app.use("/api/tournaments", tournamentsRouter);
 
 app.use("/api/players", playersRouter);
 
+export default (req: VercelRequest, res: VercelResponse) => app(req, res);
+
 app.listen(8888, () => {
   console.log("working");
 });
-// export default (req: VercelRequest, res: VercelResponse) => app(req, res);

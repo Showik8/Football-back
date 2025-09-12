@@ -23,13 +23,13 @@ model players {
   nationality String
   goal        Int
   assist      Int
-  matchPlayed Int
+  match_played Int
   view        Int
-  yellowCards Int
-  redCards    Int
+  yellow_cards Int
+  red_cards    Int
   height      Int
   weight      Int
-  photoUrl    String
+  photo_url    String
 }
 
 
