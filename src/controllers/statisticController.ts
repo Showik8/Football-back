@@ -1,37 +1,29 @@
 import type { Request, Response } from "express";
-import { players } from "../constants";
-type Player = {
-  id: number;
-  name: string;
-  jersey: number;
-  position: string;
-  team: string;
-  age: number;
-  nationality: string;
-  goal: number;
-  assist: number;
-  matchPlayed: number;
-  view: number;
-  yellowCards: number;
-  redCards: number;
-  height: number;
-  weight: number;
-  photoUrl: string;
-};
+import { PrismaClient } from "@prisma/client";
 
-function top5(arg: keyof Player, list: Player[]): Player[] {
-  return [...list]
-    .sort((a, b) => ((b[arg] ?? 0) as number) - ((a[arg] ?? 0) as number))
-    .slice(0, 5);
-}
+const prisma = new PrismaClient();
 
-const Top5 = {
-  topGoalScorers: top5("goal", players),
-  topAssists: top5("assist", players),
-  topViewers: top5("view", players),
-  topMatchPlayed: top5("matchPlayed", players),
-};
+export const getTop5 = async (_req: Request, res: Response) => {
+  const topGoalScorers = await prisma.players.findMany({
+    select: { id: true, name: true, jersey: true, goal: true },
+    orderBy: { goal: "desc" },
+    take: 5,
+  });
+  const topAssists = await prisma.players.findMany({
+    select: { id: true, name: true, jersey: true, assist: true },
+    orderBy: { assist: "desc" },
+    take: 5,
+  });
+  const topViewers = await prisma.players.findMany({
+    select: { id: true, name: true, jersey: true, view: true },
+    orderBy: { view: "desc" },
+    take: 5,
+  });
+  const topMatchPlayed = await prisma.players.findMany({
+    select: { id: true, name: true, jersey: true, matchPlayed: true },
+    orderBy: { matchPlayed: "desc" },
+    take: 5,
+  });
 
-export const getTop5 = (_req: Request, res: Response) => {
-  res.json(Top5);
+  res.send({ topGoalScorers, topAssists, topViewers, topMatchPlayed });
 };
