@@ -339,7 +339,8 @@ const tournaments = [
     age: "u-19",
     teams: [
       {
-        team: "იბერია 1999",
+        teamId: 1,
+        club: "იბერია 1999",
         played: 16,
         won: 13,
         drawn: 2,
@@ -350,7 +351,8 @@ const tournaments = [
         points: 41,
       },
       {
-        team: "დინამო თბილისი",
+        teamId: 2,
+        club: "დინამო თბილისი",
         played: 16,
         won: 12,
         drawn: 2,
@@ -361,7 +363,8 @@ const tournaments = [
         points: 38,
       },
       {
-        team: "ტორპედო",
+        teamId: 3,
+        club: "ტორპედო",
         played: 16,
         won: 9,
         drawn: 2,
@@ -372,7 +375,8 @@ const tournaments = [
         points: 29,
       },
       {
-        team: "ლოკომოტივი",
+        teamId: 4,
+        club: "ლოკომოტივი",
         played: 16,
         won: 8,
         drawn: 2,
@@ -383,7 +387,8 @@ const tournaments = [
         points: 26,
       },
       {
-        team: "დინამო ბათუმი",
+        teamId: 5,
+        club: "დინამო ბათუმი",
         played: 16,
         won: 8,
         drawn: 1,
@@ -394,7 +399,8 @@ const tournaments = [
         points: 25,
       },
       {
-        team: "კოლხეთი 1913",
+        teamId: 6,
+        club: "კოლხეთი 1913",
         played: 16,
         won: 7,
         drawn: 2,
@@ -405,7 +411,8 @@ const tournaments = [
         points: 23,
       },
       {
-        team: "ვიტი-ჯორჯია",
+        teamId: 7,
+        club: "ვიტი-ჯორჯია",
         played: 16,
         won: 5,
         drawn: 0,
@@ -416,7 +423,8 @@ const tournaments = [
         points: 15,
       },
       {
-        team: "დილა",
+        teamId: 8,
+        club: "დილა",
         played: 16,
         won: 4,
         drawn: 1,
@@ -427,7 +435,8 @@ const tournaments = [
         points: 13,
       },
       {
-        team: "თელავი",
+        teamId: 9,
+        club: "თელავი",
         played: 16,
         won: 3,
         drawn: 4,
@@ -438,7 +447,8 @@ const tournaments = [
         points: 13,
       },
       {
-        team: "საბურთალო",
+        teamId: 10,
+        club: "საბურთალო",
         played: 16,
         won: 3,
         drawn: 0,
@@ -456,7 +466,8 @@ const tournaments = [
     name: "league",
     teams: [
       {
-        team: "Inter",
+        teamId: 11,
+        club: "Inter",
         played: 6,
         won: 6,
         drawn: 0,
@@ -467,7 +478,8 @@ const tournaments = [
         points: 18,
       },
       {
-        team: "Sporting CP",
+        teamId: 12,
+        club: "Sporting CP",
         played: 6,
         won: 5,
         drawn: 1,
@@ -478,7 +490,8 @@ const tournaments = [
         points: 16,
       },
       {
-        team: "Salzburg",
+        teamId: 13,
+        club: "Salzburg",
         played: 6,
         won: 5,
         drawn: 1,
@@ -489,7 +502,8 @@ const tournaments = [
         points: 16,
       },
       {
-        team: "Barcelona",
+        teamId: 14,
+        club: "Barcelona",
         played: 6,
         won: 5,
         drawn: 0,
@@ -500,7 +514,8 @@ const tournaments = [
         points: 15,
       },
       {
-        team: "Milan",
+        teamId: 15,
+        club: "Milan",
         played: 6,
         won: 4,
         drawn: 1,
@@ -511,7 +526,8 @@ const tournaments = [
         points: 13,
       },
       {
-        team: "Juventus",
+        teamId: 16,
+        club: "Juventus",
         played: 6,
         won: 3,
         drawn: 1,
@@ -522,7 +538,8 @@ const tournaments = [
         points: 10,
       },
       {
-        team: "Roma",
+        teamId: 17,
+        club: "Roma",
         played: 6,
         won: 2,
         drawn: 1,
@@ -533,7 +550,8 @@ const tournaments = [
         points: 7,
       },
       {
-        team: "Napoli",
+        teamId: 18,
+        club: "Napoli",
         played: 6,
         won: 1,
         drawn: 1,
@@ -544,7 +562,8 @@ const tournaments = [
         points: 4,
       },
       {
-        team: "Benfica",
+        teamId: 19,
+        club: "Benfica",
         played: 6,
         won: 4,
         drawn: 1,
@@ -555,7 +574,8 @@ const tournaments = [
         points: 13,
       },
       {
-        team: "PSG",
+        teamId: 20,
+        club: "PSG",
         played: 6,
         won: 4,
         drawn: 0,
@@ -566,7 +586,8 @@ const tournaments = [
         points: 12,
       },
       {
-        team: "Arsenal",
+        teamId: 21,
+        club: "Arsenal",
         played: 6,
         won: 3,
         drawn: 2,
@@ -577,7 +598,8 @@ const tournaments = [
         points: 11,
       },
       {
-        team: "Real Madrid",
+        teamId: 22,
+        club: "Real Madrid",
         played: 6,
         won: 3,
         drawn: 1,
@@ -588,7 +610,8 @@ const tournaments = [
         points: 10,
       },
       {
-        team: "Bayern",
+        teamId: 23,
+        club: "Bayern",
         played: 6,
         won: 3,
         drawn: 1,
@@ -599,7 +622,8 @@ const tournaments = [
         points: 10,
       },
       {
-        team: "Atletico",
+        teamId: 24,
+        club: "Atletico",
         played: 6,
         won: 2,
         drawn: 2,
@@ -610,7 +634,8 @@ const tournaments = [
         points: 8,
       },
       {
-        team: "Porto",
+        teamId: 25,
+        club: "Porto",
         played: 6,
         won: 2,
         drawn: 2,
@@ -621,7 +646,8 @@ const tournaments = [
         points: 8,
       },
       {
-        team: "RB Leipzig",
+        teamId: 26,
+        club: "RB Leipzig",
         played: 6,
         won: 2,
         drawn: 1,
@@ -632,7 +658,8 @@ const tournaments = [
         points: 7,
       },
       {
-        team: "Dortmund",
+        teamId: 27,
+        club: "Dortmund",
         played: 6,
         won: 2,
         drawn: 1,
@@ -643,7 +670,8 @@ const tournaments = [
         points: 7,
       },
       {
-        team: "Ajax",
+        teamId: 28,
+        club: "Ajax",
         played: 6,
         won: 1,
         drawn: 2,
@@ -654,7 +682,8 @@ const tournaments = [
         points: 5,
       },
       {
-        team: "Celtic",
+        teamId: 29,
+        club: "Celtic",
         played: 6,
         won: 1,
         drawn: 1,
@@ -672,7 +701,8 @@ const tournaments = [
     age: "u-19",
     teams: [
       {
-        team: "ივერია ხაშური",
+        teamId: 30,
+        club: "ივერია ხაშური",
         played: 12,
         won: 11,
         drawn: 0,
@@ -683,7 +713,8 @@ const tournaments = [
         points: 33,
       },
       {
-        team: "დინამო 1 ბათუმი",
+        teamId: 31,
+        club: "დინამო 1 ბათუმი",
         played: 12,
         won: 10,
         drawn: 1,
@@ -694,7 +725,8 @@ const tournaments = [
         points: 31,
       },
       {
-        team: "მარნეთი ქუთაისი",
+        teamId: 32,
+        club: "მარნეთი ქუთაისი",
         played: 12,
         won: 7,
         drawn: 2,
@@ -705,7 +737,8 @@ const tournaments = [
         points: 23,
       },
       {
-        team: "მარგვეთი 2006 ზესტაფონი",
+        teamId: 33,
+        club: "მარგვეთი 2006 ზესტაფონი",
         played: 12,
         won: 7,
         drawn: 0,
@@ -716,7 +749,8 @@ const tournaments = [
         points: 21,
       },
       {
-        team: "ბაია ზუგდიდი",
+        teamId: 34,
+        club: "ბაია ზუგდიდი",
         played: 12,
         won: 6,
         drawn: 0,
@@ -727,7 +761,8 @@ const tournaments = [
         points: 18,
       },
       {
-        team: "ჩელე აკადემია 1 ქობულეთი",
+        teamId: 35,
+        club: "ჩელე აკადემია 1 ქობულეთი",
         played: 12,
         won: 5,
         drawn: 2,
@@ -738,7 +773,8 @@ const tournaments = [
         points: 17,
       },
       {
-        team: "სასს სტარტი",
+        teamId: 36,
+        club: "სასს სტარტი",
         played: 12,
         won: 5,
         drawn: 0,
@@ -749,7 +785,8 @@ const tournaments = [
         points: 15,
       },
       {
-        team: "რაკეტა ამბროლაური",
+        teamId: 37,
+        club: "რაკეტა ამბროლაური",
         played: 12,
         won: 2,
         drawn: 1,
@@ -760,7 +797,8 @@ const tournaments = [
         points: 7,
       },
       {
-        team: "ბახმარო ჩოხატაური",
+        teamId: 38,
+        club: "ბახმარო ჩოხატაური",
         played: 12,
         won: 2,
         drawn: 1,
@@ -771,7 +809,8 @@ const tournaments = [
         points: 7,
       },
       {
-        team: "სევანელი ქუთაისი",
+        teamId: 39,
+        club: "სევანელი ქუთაისი",
         played: 12,
         won: 1,
         drawn: 1,
