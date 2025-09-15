@@ -31,7 +31,7 @@ export const getTop5 = async (_req: Request, res: Response) => {
 
     res.json({ topGoalScorers, topAssists, topViewers, topMatchPlayed });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to fetch top players" });
+    console.log(error);
+    res.status(500).json({ error: "Failed From Prisma" });
   }
 };

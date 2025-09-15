@@ -1,10 +1,14 @@
 import type { Request, Response } from "express";
-import { players } from "../constants";
+import { PrismaClient } from "@prisma/client";
 
-function getPlayerId(req: Request, res: Response) {
+const prisma = new PrismaClient();
+
+async function getPlayerById(req: Request, res: Response) {
   const ID = Number(req.params.id);
-  const foundedPlayer = players.find((p) => p.id == ID);
-  res.send(foundedPlayer);
+  const player = await prisma.players.findUnique({
+    where: { id: ID },
+  });
+  res.send(player);
 }
 
-export { getPlayerId };
+export { getPlayerById };

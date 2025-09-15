@@ -1,7 +1,7 @@
 import express from "express";
-import { getPlayerId } from "../controllers/playersController";
+import { getPlayerById } from "../controllers/playersController";
 const router = express.Router();
 
-router.get("/:id", getPlayerId);
+router.get("/:id", getPlayerById);
 
 export default router;
