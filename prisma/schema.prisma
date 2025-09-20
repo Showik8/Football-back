@@ -12,117 +12,174 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+enum Position {
+  GOALKEEPER
+  DEFENDER
+  MIDFIELDER
+  FORWARD
+}
 
+enum MatchResult {
+  TEAM1_WIN
+  TEAM2_WIN
+  DRAW
+  PENDING
+}
 
-
-model player{
-  id            Int                 @id @default(autoincrement())
+model Player {
+  id            Int     @id @default(autoincrement())
   name          String
   jersey        Int
-  position      String
-  date_of_birth DateTime
+  position      Position
+  date_of_birth DateTime   @map("date_of_birth")
   nationality   String
-  height        Int
-  weight        Int
+  height        Int?                
+  weight        Int?                
+  is_active     Boolean   @default(true) @map("is_active")
+  created_at    DateTime  @default(now()) @map("created_at")
+  updated_at    DateTime  @updatedAt @map("updated_at")
+  
+  statistics    PlayerStatistic[]
+  team_players  TeamPlayer[]       
 
-  statistics    player_statistic[]
+  @@map("players")
 }
 
-model team {
-  id          Int   @id @default(autoincrement()) 
-  name        String
-  parent_club_id Int
-  parent_club  club  @relation(fields: [parent_club_id], references: [id])
-  statistics  team_statistic[]
-}
-
-model club {
+model Club {
   id                Int      @id @default(autoincrement())
   name              String   @unique
   city              String
-  created_at        DateTime @default(now())
-  short_description String
-  logo_url          String
-
-  Team              team[]
-  Tournament        tournament[] @relation("TournamentMembers") 
+  founded_year      Int?     @map("founded_year")
+  short_description String   @map("short_description")
+  logo_url          String?  @map("logo_url") 
+  created_at        DateTime @default(now()) @map("created_at")
+  updated_at        DateTime @updatedAt @map("updated_at")
   
+  teams             Team[]
 
-  matchesAsClub1    match[]  @relation("ClubMatches1")
-  matchesAsClub2    match[]  @relation("ClubMatches2")
+  @@map("clubs")
 }
 
-model match {
-  id            Int         @id @default(autoincrement())
-  tournament_id  Int
-  club1_id      Int
-  club2_id      Int
-  round_number  Int
-  match_date    DateTime?
-  result        match_result @default(pending)
-  score_club1   Int         @default(0)
-  score_club2   Int         @default(0)
-  notes         String?
-  created_at     DateTime    @default(now())
-  updated_at     DateTime    @updatedAt
 
-  tournament    tournament  @relation(fields: [tournament_id], references: [id], onDelete: Cascade)
+model Team {
+  id             Int      @id @default(autoincrement())
+  name           String   @unique
+  parent_club_id Int      @map("parent_club_id")
+  age_category   String   @map("age_category") 
+  is_active      Boolean  @default(true) @map("is_active")
+  created_at     DateTime @default(now()) @map("created_at")
+  updated_at     DateTime @updatedAt @map("updated_at")
 
-  club1         club        @relation("ClubMatches1", fields: [club1_id], references: [id])
-  club2         club        @relation("ClubMatches2", fields: [club2_id], references: [id])
-}
-enum match_result {
-  player1_win
-  player2_win
-  draw
-  pending
+  parent_club      Club              @relation(fields: [parent_club_id], references: [id], onDelete: Cascade)
+  home_matches     Match[]           @relation("Team1Matches") 
+  away_matches     Match[]           @relation("Team2Matches")
+  team_tournaments TeamTournament[]
+  team_players     TeamPlayer[]     
+
+  @@unique([name, parent_club_id, age_category]) 
+  @@map("teams")
 }
 
-model tournament {
-  id          Int      @id @default(autoincrement())
-  name        String  
-  age_category String
-  location    String
-  description String
-  start_date  DateTime 
-  end_date    DateTime
-  logo_url    String
 
+model TeamPlayer {
+  id         Int      @id @default(autoincrement())
+  team_id    Int      @map("team_id")
+  player_id  Int      @map("player_id")
+  joined_at  DateTime @default(now()) @map("joined_at")
+  left_at    DateTime? @map("left_at")
+  is_active  Boolean  @default(true) @map("is_active")
+
+  team       Team     @relation(fields: [team_id], references: [id], onDelete: Cascade)
+  player     Player   @relation(fields: [player_id], references: [id], onDelete: Cascade)
+
+  @@unique([team_id, player_id, joined_at])
+  @@map("team_players")
+}
+
+
+model Tournament {
+  id            Int       @id @default(autoincrement())
+  name          String    @unique
+  age_category  String    @map("age_category")
+  location      String
+  description   String?
+  start_date    DateTime  @map("start_date")
+  end_date      DateTime? @map("end_date") 
+  logo_url      String?   @map("logo_url")
+  is_active     Boolean   @default(true) @map("is_active")
+  created_at    DateTime  @default(now()) @map("created_at")
+  updated_at    DateTime  @updatedAt @map("updated_at")
   
-  members     club[] @relation("TournamentMembers")
-  Match       match[]
+  matches         Match[]
+  team_tournaments TeamTournament[]
+
+  @@map("tournaments")
 }
 
-model player_statistic {
-  id           Int     @id @default(autoincrement())
-  season       String   
-  competition  String
-  goal         Int
-  assist       Int
-  match_played Int
-  view         Int
-  yellow_cards Int
-  red_cards    Int
+model Match {
+  id             Int         @id @default(autoincrement())
+  tournament_id  Int         @map("tournament_id")
+  team1_id       Int         @map("team1_id")
+  team2_id       Int         @map("team2_id")
+  round_number   Int         @map("round_number")
+  match_date     DateTime?   @map("match_date")
+  result         MatchResult @default(PENDING)
+  score_team1    Int         @default(0) @map("score_team1")
+  score_team2    Int         @default(0) @map("score_team2")
+  notes          String?
+  is_played      Boolean     @default(false) @map("is_played")
+  created_at     DateTime    @default(now()) @map("created_at")
+  updated_at     DateTime    @updatedAt @map("updated_at")
 
-  player_id    Int
-  player       player  @relation(fields: [player_id], references: [id])
-}
+  tournament     Tournament  @relation(fields: [tournament_id], references: [id], onDelete: Cascade)
+  team1          Team        @relation("Team1Matches", fields: [team1_id], references: [id])
+  team2          Team        @relation("Team2Matches", fields: [team2_id], references: [id])
 
-model team_statistic {
-  id                Int @id @default(autoincrement())
-  completed_matches Int
-  won               Int
-  drawn             Int
-  lost              Int
-  goals_for         Int
-  goals_against     Int 
-  goal_difference   Int 
-  points            Int
-
-  team_id           Int
-  team              team @relation(fields: [team_id], references: [id])
+  @@unique([tournament_id, team1_id, team2_id, round_number])
+  @@map("matches")
 }
 
 
+model PlayerStatistic {
+  id             Int      @id @default(autoincrement())
+  season         String   
+  competition    String
+  goals          Int      @default(0)
+  assists        Int      @default(0) 
+  matches_played Int      @default(0) @map("matches_played")
+  views          Int      @default(0) @map("views")
+  yellow_cards   Int      @default(0) @map("yellow_cards")
+  red_cards      Int      @default(0) @map("red_cards")
+  created_at     DateTime @default(now()) @map("created_at")
+  updated_at     DateTime @updatedAt @map("updated_at")
 
+  // Relations
+  player_id      Int     @map("player_id")
+  player         Player  @relation(fields: [player_id], references: [id], onDelete: Cascade)
 
+  @@unique([player_id, season, competition]) 
+  @@map("player_statistics")
+}
+
+model TeamTournament {
+  id                Int        @id @default(autoincrement())
+  team_id           Int        @map("team_id")
+  tournament_id     Int        @map("tournament_id")
+  completed_matches Int        @default(0) @map("completed_matches")
+  won               Int        @default(0)
+  drawn             Int        @default(0)
+  lost              Int        @default(0)
+  goals_for         Int        @default(0) @map("goals_for")
+  goals_against     Int        @default(0) @map("goals_against")
+  goal_difference   Int        @default(0) @map("goal_difference")
+  points            Int        @default(0)
+  position          Int?     
+  created_at        DateTime   @default(now()) @map("created_at")
+  updated_at        DateTime   @updatedAt @map("updated_at")
+
+  team              Team       @relation(fields: [team_id], references: [id], onDelete: Cascade)
+  tournament        Tournament @relation(fields: [tournament_id], references: [id], onDelete: Cascade)
+
+  @@unique([team_id, tournament_id])  
+  @@map("team_tournaments")
+}
