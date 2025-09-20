@@ -7,23 +7,35 @@ export const getTop5 = async (_req: Request, res: Response) => {
   try {
     const [topGoalScorers, topAssists, topViewers, topMatchPlayed] =
       await Promise.all([
-        prisma.players.findMany({
-          select: { id: true, name: true, jersey: true, goal: true },
+        prisma.player_statistic.findMany({
+          select: {
+            goal: true,
+            player: { select: { id: true, name: true, jersey: true } },
+          },
           orderBy: { goal: "desc" },
           take: 5,
         }),
-        prisma.players.findMany({
-          select: { id: true, name: true, jersey: true, assist: true },
+        prisma.player_statistic.findMany({
+          select: {
+            assist: true,
+            player: { select: { id: true, name: true, jersey: true } },
+          },
           orderBy: { assist: "desc" },
           take: 5,
         }),
-        prisma.players.findMany({
-          select: { id: true, name: true, jersey: true, view: true },
+        prisma.player_statistic.findMany({
+          select: {
+            view: true,
+            player: { select: { id: true, name: true, jersey: true } },
+          },
           orderBy: { view: "desc" },
           take: 5,
         }),
-        prisma.players.findMany({
-          select: { id: true, name: true, jersey: true, match_played: true },
+        prisma.player_statistic.findMany({
+          select: {
+            match_played: true,
+            player: { select: { id: true, name: true, jersey: true } },
+          },
           orderBy: { match_played: "desc" },
           take: 5,
         }),

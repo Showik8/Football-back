@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 async function getPlayerById(req: Request, res: Response) {
   const ID = Number(req.params.id);
-  const player = await prisma.players.findUnique({
+  const player = await prisma.player.findUnique({
     where: { id: ID },
   });
   res.send(player);
