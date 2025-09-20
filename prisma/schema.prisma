@@ -13,23 +13,116 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model players {
-  id          Int     @id @default(autoincrement())
+
+
+model player{
+  id            Int                 @id @default(autoincrement())
+  name          String
+  jersey        Int
+  position      String
+  date_of_birth DateTime
+  nationality   String
+  height        Int
+  weight        Int
+
+  statistics    player_statistic[]
+}
+
+model team {
+  id          Int   @id @default(autoincrement()) 
   name        String
-  jersey      Int
-  position    String
-  team        String
-  age         Int
-  nationality String
-  goal        Int
-  assist      Int
+  parent_club_id Int
+  parent_club  club  @relation(fields: [parent_club_id], references: [id])
+  statistics  team_statistic[]
+}
+
+model club {
+  id                Int      @id @default(autoincrement())
+  name              String   @unique
+  city              String
+  created_at        DateTime @default(now())
+  short_description String
+  logo_url          String
+
+  Team              team[]
+  Tournament        tournament[] @relation("TournamentMembers") 
+  
+
+  matchesAsClub1    match[]  @relation("ClubMatches1")
+  matchesAsClub2    match[]  @relation("ClubMatches2")
+}
+
+model match {
+  id            Int         @id @default(autoincrement())
+  tournament_id  Int
+  club1_id      Int
+  club2_id      Int
+  round_number  Int
+  match_date    DateTime?
+  result        match_result @default(pending)
+  score_club1   Int         @default(0)
+  score_club2   Int         @default(0)
+  notes         String?
+  created_at     DateTime    @default(now())
+  updated_at     DateTime    @updatedAt
+
+  tournament    tournament  @relation(fields: [tournament_id], references: [id], onDelete: Cascade)
+
+  club1         club        @relation("ClubMatches1", fields: [club1_id], references: [id])
+  club2         club        @relation("ClubMatches2", fields: [club2_id], references: [id])
+}
+enum match_result {
+  player1_win
+  player2_win
+  draw
+  pending
+}
+
+model tournament {
+  id          Int      @id @default(autoincrement())
+  name        String  
+  age_category String
+  location    String
+  description String
+  start_date  DateTime 
+  end_date    DateTime
+  logo_url    String
+
+  
+  members     club[] @relation("TournamentMembers")
+  Match       match[]
+}
+
+model player_statistic {
+  id           Int     @id @default(autoincrement())
+  season       String   
+  competition  String
+  goal         Int
+  assist       Int
   match_played Int
-  view        Int
+  view         Int
   yellow_cards Int
   red_cards    Int
-  height      Int
-  weight      Int
-  photo_url    String
+
+  player_id    Int
+  player       player  @relation(fields: [player_id], references: [id])
 }
+
+model team_statistic {
+  id                Int @id @default(autoincrement())
+  completed_matches Int
+  won               Int
+  drawn             Int
+  lost              Int
+  goals_for         Int
+  goals_against     Int 
+  goal_difference   Int 
+  points            Int
+
+  team_id           Int
+  team              team @relation(fields: [team_id], references: [id])
+}
+
+
 
 
