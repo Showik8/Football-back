@@ -31,7 +31,7 @@ model Player {
   name          String
   jersey        Int
   position      Position
-  date_of_birth DateTime   @map("date_of_birth")
+  date_of_birth String   @map("date_of_birth")
   nationality   String
   height        Int?                
   weight        Int?                

@@ -7,36 +7,44 @@ export const getTop5 = async (_req: Request, res: Response) => {
   try {
     const [topGoalScorers, topAssists, topViewers, topMatchPlayed] =
       await Promise.all([
-        prisma.player_statistic.findMany({
+        prisma.playerStatistic.findMany({
           select: {
-            goal: true,
-            player: { select: { id: true, name: true, jersey: true } },
+            goals: true,
+            player: {
+              select: { id: true, name: true, jersey: true, position: true },
+            },
           },
-          orderBy: { goal: "desc" },
+          orderBy: { goals: "desc" },
           take: 5,
         }),
-        prisma.player_statistic.findMany({
+        prisma.playerStatistic.findMany({
           select: {
-            assist: true,
-            player: { select: { id: true, name: true, jersey: true } },
+            assists: true,
+            player: {
+              select: { id: true, name: true, jersey: true, position: true },
+            },
           },
-          orderBy: { assist: "desc" },
+          orderBy: { assists: "desc" },
           take: 5,
         }),
-        prisma.player_statistic.findMany({
+        prisma.playerStatistic.findMany({
           select: {
-            view: true,
-            player: { select: { id: true, name: true, jersey: true } },
+            views: true,
+            player: {
+              select: { id: true, name: true, jersey: true, position: true },
+            },
           },
-          orderBy: { view: "desc" },
+          orderBy: { views: "desc" },
           take: 5,
         }),
-        prisma.player_statistic.findMany({
+        prisma.playerStatistic.findMany({
           select: {
-            match_played: true,
-            player: { select: { id: true, name: true, jersey: true } },
+            matches_played: true,
+            player: {
+              select: { id: true, name: true, jersey: true, position: true },
+            },
           },
-          orderBy: { match_played: "desc" },
+          orderBy: { matches_played: "desc" },
           take: 5,
         }),
       ]);
